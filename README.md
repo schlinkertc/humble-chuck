@@ -13,18 +13,10 @@ efficient ways to tackle challenges. I have a deep interest in coding,
 cloud technology, and real estate analytics, and I’m constantly learning
 new ways to improve workflows and outcomes.
 
-Outside of my work in tech, I’ve been a musician for most of my life. I
-started playing drums at 9, studied jazz performance at NYU, and
-co-founded the band Del Water Gap. I’ve performed with Maggie Rogers and
-have been gigging in NYC since I was 16, balancing my passion for music
-with my love for coding and problem-solving.
-
-As a father to my 8-year-old son Jackson, co-parenting has been one of
-my biggest and most rewarding challenges. It’s taught me how to navigate
-both personal and professional responsibilities with focus and
-flexibility.
-
-If you’re interested in collaborating on a coding project or just want
-to connect, feel free to reach out: \[Your Email Here\].
+Outside of my work in tech, I’m a lifelong musician. I studied jazz
+performance at NYU, and co-founded the band Del Water Gap. I’ve
+performed with Maggie Rogers and have been gigging in NYC since I was
+16, balancing my passion for music with my love for coding and
+problem-solving.
 
 **I made this site using NBDev**
