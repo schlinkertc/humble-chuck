@@ -6,3 +6,8 @@ website:
       - 01_delegates.ipynb
       - 02_dependency.ipynb
       - 03_multi_enum.ipynb
+      - 04_database.ipynb
+      - 05_config.ipynb
+      - section: projects
+        contents:
+          - projects/Treasury Bonds.ipynb
