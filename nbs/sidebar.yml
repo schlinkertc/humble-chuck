@@ -8,6 +8,7 @@ website:
       - 03_multi_enum.ipynb
       - 04_database.ipynb
       - 05_config.ipynb
+      - 06_models.ipynb
       - section: projects
         contents:
           - projects/Treasury Bonds.ipynb
