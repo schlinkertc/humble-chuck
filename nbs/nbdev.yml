@@ -3,7 +3,7 @@ project:
 
 website:
   title: "humble-chuck"
-  site-url: "https://schlinkertc@gmail.com.github.io/humble-chuck"
+  site-url: "https://schlinkertc.github.io/humble-chuck"
   description: "Personal site"
   repo-branch: main
-  repo-url: "https://github.com/schlinkertc@gmail.com/humble-chuck"
+  repo-url: "https://github.com/schlinkertc/humble-chuck"
