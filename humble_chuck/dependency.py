@@ -12,6 +12,24 @@ from pydantic import ValidationError, validate_call,GetCoreSchemaHandler
 from pydantic_core import core_schema
 from pydantic.json_schema import JsonSchemaValue,GetJsonSchemaHandler
 
+# %% ../nbs/02_dependency.ipynb 4
+# create logger
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# create console handler and set level to debug
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+
+# create formatter
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# add formatter to ch
+ch.setFormatter(formatter)
+
+# add ch to logger
+logger.addHandler(ch)
+
 # %% ../nbs/02_dependency.ipynb 5
 logger = logging.getLogger(__name__)
 

@@ -4,14 +4,16 @@ project:
 format:
   html:
     theme: yeti
-    grid: 
-      sidebar-width: 20px
-      body-width: 1500px
-      margin-width: 250px
+    # grid: 
+    #   sidebar-width: 25px
+      # body-width: 2000px
+      # margin-width: 25px
     css: styles.css
-    page-layout: full
+    page-layout: article
+    embed-resources: true
     link-external-newwindow: True
     toc: true
+    toc-expand: false
     keep-md: true
   commonmark: default
 
