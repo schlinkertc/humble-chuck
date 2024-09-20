@@ -9,6 +9,6 @@ website:
       - 04_database.ipynb
       - 05_config.ipynb
       - 06_models.ipynb
-      - section: Projects
+      - section: projects
         contents:
           - projects/Treasury Bonds.ipynb
