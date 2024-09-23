@@ -9,8 +9,7 @@ format:
       # body-width: 2000px
       # margin-width: 25px
     css: styles.css
-    page-layout: article
-    embed-resources: true
+    page-layout: full
     link-external-newwindow: True
     toc: true
     toc-expand: false
