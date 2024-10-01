@@ -17,11 +17,16 @@ def custom_show(
     - Downloaded plots are higher quality 'SVG' format
     - Allows you to pass 'filename' argument to customize the name of the downloaded file 
     """
-    cfg = dict(
-        toImageButtonOptions=config['toImageButtonOptions'],
-        displaylogo=False
-    )
+    config = {
+      'toImageButtonOptions': {
+        'format': 'svg', # one of png, svg, jpeg, webp
+        'scale': 1 # Multiply title/legend/axis/canvas sizes by this factor
+      },
+        
+        
+    }
+
     if filename:
-        cfg['toImageButtonOptions']['filename']=filename
-    fig.show(config=cfg)
+        config['toImageButtonOptions']['filename']=filename
+    fig.show(config=config)
 
