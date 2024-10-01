@@ -7,7 +7,7 @@ website:
       - 02_dependency.ipynb
       - 03_multi_enum.ipynb
       - 04_database.ipynb
-      - 05_config.ipynb
+      - 05_display.ipynb
       - 06_models.ipynb
       - section: projects
         contents:

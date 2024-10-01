@@ -4,26 +4,22 @@ project:
 format:
   html:
     theme: yeti
-    # grid: 
-    #   sidebar-width: 25px
-      # body-width: 2000px
-      # margin-width: 25px
     css: styles.css
     page-layout: full
     link-external-newwindow: True
     toc: true
-    toc-expand: false
     keep-md: true
   commonmark: default
 
 website:
-  twitter-card: true
-  open-graph: true
-  repo-actions: [issue]
+  twitter-card: false
+  open-graph: false
+  #repo-actions: [issue]
   navbar:
     background: primary
     search: true
   sidebar:
+    collapse-level: 1
     style: docked
 
 metadata-files: [nbdev.yml, sidebar.yml]
