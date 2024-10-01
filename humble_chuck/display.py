@@ -22,7 +22,7 @@ def custom_show(
         'format': 'svg', # one of png, svg, jpeg, webp
         'scale': 1 # Multiply title/legend/axis/canvas sizes by this factor
       },
-        
+        'displaylogo':False
         
     }
 

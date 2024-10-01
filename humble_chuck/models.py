@@ -68,13 +68,18 @@ def read_yaml_key(file_path: str, target_key: str) -> dict:
     :param target_key: The key whose values need to be extracted.
     :return: A dictionary containing the values for the specified key.
     """
+    import yaml  # Ensure PyYAML is installed and imported
+
     if not file_path:
         return {}
-    with open(file_path, 'r') as yaml_file:
-        yaml_content = yaml.safe_load(yaml_file) or {}
+        
+    try:
+        with open(file_path, 'r') as yaml_file:
+            yaml_content = yaml.safe_load(yaml_file) or {}
+    except FileNotFoundError:
+        return {}
     
-    return yaml_content.get(target_key,{})
-    
+    return yaml_content.get(target_key, {})
 
 # %% ../nbs/06_models.ipynb 20
 class YMLSettingsSource(PydanticBaseSettingsSource):
