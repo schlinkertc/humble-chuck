@@ -9,6 +9,8 @@ website:
       - 04_database.ipynb
       - 05_display.ipynb
       - 06_models.ipynb
+      - 07_arc_gis.ipynb
       - section: projects
         contents:
+          - projects/Dash.ipynb
           - projects/Treasury Bonds.ipynb
