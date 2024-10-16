@@ -7,16 +7,10 @@ __all__ = ['DatabaseSettings', 'Database']
 from humble_chuck.models import BaseSettings
 from typing import *
 from pydantic import SecretStr
-#| exporti
-
 from humble_chuck.delegation import delegates
-
-
 import sqlalchemy
-
 from sqlalchemy import URL
 from sqlalchemy import create_engine, Engine
-    
 from sqlalchemy.orm import Session
 from pydantic import SecretStr, Field
 from pydantic_settings import SettingsConfigDict
@@ -29,6 +23,11 @@ from sqlalchemy import text
 
 # %% ../nbs/04_database.ipynb 4
 class DatabaseSettings(BaseSettings):
+    """
+    Pydantic settings model for arguments passed to SQL Alchemy's URL object.  
+    
+    Customized to accept variables from a central .yml file according to a key specified by the 'env_prefix' value of the model_config.
+    """
     username: Optional[str]=None
     password: Optional[SecretStr]=None
     drivername:str 
@@ -42,7 +41,7 @@ class Database(DatabaseSettings):
     """
     Create a Database connection with default functionality. 
     
-    Inherits attributes from `DatabaseSettings` to manage credentials. Inherits methods from `AbstractDatabaseClass`.
+    Inherits attributes from `DatabaseSettings` to manage credentials. 
 
     Use the class as-is to quickly create a database connection, or create a subclass to control connections to a specific database.
     

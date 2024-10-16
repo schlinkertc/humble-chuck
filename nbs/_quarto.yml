@@ -9,7 +9,7 @@ format:
     link-external-newwindow: True
     toc: true
     keep-md: true
-  commonmark: default
+  #commonmark: default
 
 website:
   twitter-card: false
