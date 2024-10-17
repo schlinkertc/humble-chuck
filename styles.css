@@ -1,0 +1,123 @@
+.cell {
+  margin-bottom: 1rem;
+}
+
+.cell > .sourceCode {
+  margin-bottom: 0;
+}
+
+.cell-output > pre {
+  margin-bottom: 0;
+}
+
+.cell-output > pre, .cell-output > .sourceCode > pre, .cell-output-stdout > pre {
+  margin-left: 0.8rem;
+  margin-top: 0;
+  background: none;
+  border-left: 2px solid lightsalmon;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.cell-output > .sourceCode {
+  border: none;
+}
+
+.cell-output > .sourceCode {
+  background: none;
+  margin-top: 0;
+}
+
+div.description {
+  padding-left: 2px;
+  padding-top: 5px;
+  font-style: italic;
+  font-size: 135%;
+  opacity: 70%;
+}
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+
+/* General styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header styles */
+header {
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1, header h2, header h3 {
+    color: #0056b3; /* Blue color matching the headers on Pretium's site */
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Navigation styles */
+nav a {
+    text-decoration: none;
+    color: #333333;
+    margin: 0 15px;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #0056b3;
+}
+
+/* Content styles */
+.main-content {
+    padding: 20px;
+}
+
+.quarto-float {
+    width: 100% !important;
+    margin: 0 auto;
+    padding: 0;
+}
+/* Adjust the table inside the div to take up full width */
+table {
+    width: 100% !important;
+}
+/* Target the figure element to ensure it is also full-width */
+.quarto-float.quarto-figure {
+    width: 100% !important;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+    color: #333333;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+    color: #555555;
+    line-height: 1.6;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333333;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #0056b3;
+}
