@@ -1,0 +1,34 @@
+digraph "Foul Mood Guide" {
+	rankdir=TB
+	Start [label="Are you hydrated?" pos="0,0!"]
+	HydrationYes [label=Yes constraint=false pos="1,-1!"]
+	HydrationNo [label=No constraint=false pos="-1,-1!"]
+	DrinkWater [label="If not, have a glass of water." constraint=false pos="-2,-2!"]
+	Eaten [label="Have you eaten in the past 3 hours?" pos="2,-2!"]
+	EatenYes [label=Yes constraint=false pos="3,-3!"]
+	EatenNo [label=No constraint=false pos="1,-3!"]
+	EatFood [label="If not, get some food with protein, not just carbs." constraint=false pos="0,-4!"]
+	Showered [label="Have you showered in the past day?" pos="4,-4!"]
+	ShoweredYes [label=Yes constraint=false pos="5,-5!"]
+	ShoweredNo [label=No constraint=false pos="3,-5!"]
+	TakeShower [label="If not, take a shower now." constraint=false pos="2,-6!"]
+	Stretched [label="Have you stretched your legs in the past day?" pos="6,-6!"]
+	StretchedYes [label=Yes constraint=false pos="7,-7!"]
+	StretchedNo [label=No constraint=false pos="5,-7!"]
+	DoStretch [label="If not, go for a walk or move around." constraint=false pos="4,-8!"]
+	Start -> HydrationYes [label=Yes constraint=true]
+	Start -> HydrationNo [label=No constraint=true]
+	HydrationNo -> DrinkWater
+	HydrationYes -> Eaten
+	Eaten -> EatenYes [label=Yes]
+	Eaten -> EatenNo [label=No]
+	EatenNo -> EatFood
+	EatenYes -> Showered
+	Showered -> ShoweredYes [label=Yes]
+	Showered -> ShoweredNo [label=No]
+	ShoweredNo -> TakeShower
+	ShoweredYes -> Stretched
+	Stretched -> StretchedYes [label=Yes]
+	Stretched -> StretchedNo [label=No]
+	StretchedNo -> DoStretch
+}

@@ -106,6 +106,7 @@ class Database(DatabaseSettings):
         with self._engine.connect() as conn:
             df = pd.read_sql_query(
                 text(query_string),conn,**kwargs)
+            conn.close()
         return df
 
     @contextmanager
