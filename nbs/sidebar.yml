@@ -2,7 +2,6 @@ website:
   sidebar:
     contents:
       - index.ipynb
-      - 00_core.ipynb
       - 01_delegates.ipynb
       - 02_dependency.ipynb
       - 03_multi_enum.ipynb
@@ -12,8 +11,5 @@ website:
       - 07_arc_gis.ipynb
       - section: projects
         contents:
-          - projects/Baseball.ipynb
-          - projects/Dash.ipynb
           - projects/Flow Chart Creator.ipynb
           - projects/Treasury Bonds.ipynb
-          - projects/Untitled.ipynb

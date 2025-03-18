@@ -9,6 +9,7 @@ __all__ = ['get_arcgis_feature_service', 'get_arcgis_layer', 'get_arcgis_layer_l
 import requests
 from humble_chuck.models import BaseModel
 from typing import *
+import pandas as pd
 
 # %% ../nbs/07_arc_gis.ipynb 3
 def get_arcgis_feature_service(
@@ -27,7 +28,7 @@ def get_arcgis_feature_service(
     r = requests.get(url,params={'f':'json'})
     return r.json()
 
-# %% ../nbs/07_arc_gis.ipynb 6
+# %% ../nbs/07_arc_gis.ipynb 7
 def format_arcgis_url(
     serviceName:str,
     layerId:int=0,
@@ -36,7 +37,7 @@ def format_arcgis_url(
     return f"https://services.arcgis.com/{webadaptor}/arcgis/rest/services/{serviceName}/FeatureServer/{layerId}/"
     
 
-# %% ../nbs/07_arc_gis.ipynb 7
+# %% ../nbs/07_arc_gis.ipynb 8
 def get_arcgis_layer(
     serviceName, 
     layerId:int=0,
@@ -72,7 +73,7 @@ def get_arcgis_layer(
     
     
 
-# %% ../nbs/07_arc_gis.ipynb 8
+# %% ../nbs/07_arc_gis.ipynb 9
 def get_arcgis_layer_last_updated(
     serviceName,
     layerId=0,
@@ -83,7 +84,7 @@ def get_arcgis_layer_last_updated(
     last_edit_date = layer['editingInfo']['lastEditDate']
     return pd.Timestamp(last_edit_date,unit='ms')
 
-# %% ../nbs/07_arc_gis.ipynb 9
+# %% ../nbs/07_arc_gis.ipynb 12
 def get_arcgis_query(
     serviceName:str,
     layerId:int = 0,
