@@ -84,7 +84,7 @@ def get_arcgis_layer_last_updated(
     last_edit_date = layer['editingInfo']['lastEditDate']
     return pd.Timestamp(last_edit_date,unit='ms')
 
-# %% ../nbs/07_arc_gis.ipynb 12
+# %% ../nbs/07_arc_gis.ipynb 13
 def get_arcgis_query(
     serviceName:str,
     layerId:int = 0,
@@ -135,3 +135,5 @@ def get_arcgis_query(
         i+=1000
 
     return data 
+
+
