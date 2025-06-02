@@ -31,12 +31,12 @@ def custom_show(
     fig.show(config=config)
 
 
-# %% ../nbs/05_display.ipynb 9
+# %% ../nbs/05_display.ipynb 8
 from nbdev.showdoc import BasicMarkdownRenderer
 from pydantic import BaseModel
 import inspect
 
-# %% ../nbs/05_display.ipynb 10
+# %% ../nbs/05_display.ipynb 9
 class PydanticAwareRenderer(BasicMarkdownRenderer):
     def render(self):
         if inspect.isclass(self.sym) and issubclass(self.sym, BaseModel):
