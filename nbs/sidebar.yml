@@ -9,6 +9,7 @@ website:
       - 05_display.ipynb
       - 06_models.ipynb
       - 07_arc_gis.ipynb
+      - 08_baseball.ipynb
       - section: projects
         contents:
           - projects/Flow Chart Creator.ipynb

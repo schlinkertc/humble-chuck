@@ -34,51 +34,65 @@ def custom_show(
 # %% ../nbs/05_display.ipynb 8
 from nbdev.showdoc import BasicMarkdownRenderer
 from pydantic import BaseModel
+from pydantic_settings import BaseSettings
 import inspect
 
 # %% ../nbs/05_display.ipynb 9
 class PydanticAwareRenderer(BasicMarkdownRenderer):
     def render(self):
         if inspect.isclass(self.sym) and issubclass(self.sym, BaseModel):
-            self._repr_markdown_()
-            self.docs +=self.render_pydantic_model(self.sym.schema())
-            return self.render_pydantic_model(self.sym.schema())
+            schema = self.sym.model_json_schema()
+            md = "\n".join(
+                self.render_fields_table(schema)
+                + self.render_defs_tables(schema)
+            )
+            self.docs += md
+            return ""    
+            
+            #return "\n".join(lines)
         else:
-            return super().render()
+            if hasattr(super(),'render'):
+                return super().render()
+            
+            return super().__repr__()
 
-    def render_pydantic_model(self, schema, title=None, depth=0):
-        indent = "  " * depth
-        lines = ['*', '']
+    def render_fields_table(self, schema):
+        lines = ["*", "\n**Fields:**\n"]
+        lines.append("| Name | Type | Required | Default | Description |")
+        lines.append("|------|------|----------|---------|-------------|")
+        required_fields = set(schema.get("required", []))
 
-        # if title:
-        #     lines.append(f"{indent}#### {title}")
-        # if depth == 0:
-        #     lines.append(f"### {self.sym.__name__}")
-        
-        lines.append(f"{indent}**Fields:**\n")
-        lines.append(f"{indent}| Name | Type | Required | Default | Description |")
-        lines.append(f"{indent}|------|------|----------|---------|-------------|")
-
-        references = []
-        for field_name, field_info in schema.get('properties', {}).items():
-            # Detect if field is a $ref to another schema definition
-            if '$ref' in field_info:
-                ref_name = field_info['$ref'].split('/')[-1]
-                ref_schema = schema.get('$defs', {}).get(ref_name)
-
-                if ref_schema:
-                    lines.append(f"{indent}| {field_name} | {ref_name} | True | - | (Nested Model) |")
-                    # Recurse into the referenced schema
-                    lines.append(self.render_pydantic_model(ref_schema, title=ref_name, depth=depth+1))
-                else:
-                    lines.append(f"{indent}| {field_name} | UnknownRef | True | - | (Missing Definition) |")
+        for field_name, field_info in schema.get("properties", {}).items():
+            if "$ref" in field_info:
+                ref_name = field_info["$ref"].split("/")[-1]
+                lines.append(f"| {field_name} | {ref_name} | {field_name in required_fields} | - | (Nested Model) |")
             else:
-                field_type = field_info.get('type', '')
-                description = field_info.get('description', '')
-                required = field_name in schema.get('required', [])
-                default = field_info.get('default', '')
-                lines.append(f"{indent}| {field_name} | {field_type} | {required} | {default} | {description} |")
+                field_type = field_info.get("type", "")
+                description = field_info.get("description", "")
+                default = field_info.get("default", "")
+                lines.append(f"| {field_name} | {field_type} | {field_name in required_fields} | {default} | {description} |")
 
-        return "\n".join(lines)
+        lines.append("")  # Blank line between tables
+        return lines
+
+    def render_defs_tables(self, schema):
+        defs = schema.get("$defs", {})
+        lines = []
+
+        for def_name, def_schema in defs.items():
+            lines.append(f"\n**$defs → {def_name}**\n")
+            lines.append("| Name | Type | Required | Default | Description |")
+            lines.append("|------|------|----------|---------|-------------|")
+            required_fields = set(def_schema.get("required", []))
+
+            for field_name, field_info in def_schema.get("properties", {}).items():
+                field_type = field_info.get("type", "")
+                description = field_info.get("description", "")
+                default = field_info.get("default", "")
+                lines.append(f"| {field_name} | {field_type} | {field_name in required_fields} | {default} | {description} |")
+
+            lines.append("")  # Blank line after each defs table
+
+        return lines
 
     __repr__ = __str__ = render
