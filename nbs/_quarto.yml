@@ -18,6 +18,11 @@ website:
   navbar:
     background: primary
     search: true
+    link-external-newwindow: True
+    right: 
+        - text: "Resume"
+          href: "https://docs.google.com/document/d/17Nb-wX0hvkfQFUGTHg1ogNJtvaZN0O5LW1rK0YXwjNI/edit?usp=sharing"
+          
   sidebar:
     collapse-level: 1
     style: docked
