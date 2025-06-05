@@ -7,6 +7,7 @@ __all__ = ['get_arcgis_feature_service', 'get_arcgis_layer', 'get_arcgis_layer_l
 
 # %% ../nbs/07_arc_gis.ipynb 2
 import requests
+import pandas as pd
 from humble_chuck.models import BaseModel
 from typing import *
 
@@ -94,6 +95,7 @@ def get_arcgis_query(
     **kwargs
 )->dict:
     url = format_arcgis_url(serviceName,layerId,webadaptor) + 'query'
+    batch_size = 1000
     if not limit:
         count_request = requests.get(
             url,
@@ -119,7 +121,7 @@ def get_arcgis_query(
                 "outSR":'4326',
                 "f":f,
                 "where":where,
-                "resultRecordCount":limit,
+                "resultRecordCount": batch_size,
                 "resultOffset":i,
                 "geometryType":'esriGeometryPolygon',
             }
@@ -131,6 +133,6 @@ def get_arcgis_query(
 
         else:
             data['features'].extend(r.json()['features'])
-        i+=1000
+        i += batch_size
 
     return data 
