@@ -7,8 +7,10 @@ __all__ = ['get_arcgis_feature_service', 'get_arcgis_layer', 'get_arcgis_layer_l
 
 # %% ../nbs/07_arc_gis.ipynb 2
 import requests
+import pandas as pd
 from humble_chuck.models import BaseModel
 from typing import *
+import pandas as pd
 
 # %% ../nbs/07_arc_gis.ipynb 3
 def get_arcgis_feature_service(
@@ -27,7 +29,7 @@ def get_arcgis_feature_service(
     r = requests.get(url,params={'f':'json'})
     return r.json()
 
-# %% ../nbs/07_arc_gis.ipynb 6
+# %% ../nbs/07_arc_gis.ipynb 7
 def format_arcgis_url(
     serviceName:str,
     layerId:int=0,
@@ -36,7 +38,7 @@ def format_arcgis_url(
     return f"https://services.arcgis.com/{webadaptor}/arcgis/rest/services/{serviceName}/FeatureServer/{layerId}/"
     
 
-# %% ../nbs/07_arc_gis.ipynb 7
+# %% ../nbs/07_arc_gis.ipynb 8
 def get_arcgis_layer(
     serviceName, 
     layerId:int=0,
@@ -72,7 +74,7 @@ def get_arcgis_layer(
     
     
 
-# %% ../nbs/07_arc_gis.ipynb 8
+# %% ../nbs/07_arc_gis.ipynb 9
 def get_arcgis_layer_last_updated(
     serviceName,
     layerId=0,
@@ -83,7 +85,7 @@ def get_arcgis_layer_last_updated(
     last_edit_date = layer['editingInfo']['lastEditDate']
     return pd.Timestamp(last_edit_date,unit='ms')
 
-# %% ../nbs/07_arc_gis.ipynb 9
+# %% ../nbs/07_arc_gis.ipynb 13
 def get_arcgis_query(
     serviceName:str,
     layerId:int = 0,
@@ -94,6 +96,7 @@ def get_arcgis_query(
     **kwargs
 )->dict:
     url = format_arcgis_url(serviceName,layerId,webadaptor) + 'query'
+    batch_size = 1000
     if not limit:
         count_request = requests.get(
             url,
@@ -111,7 +114,7 @@ def get_arcgis_query(
     data = {}
     i = 0
     while i < count:
-
+        current_batch = min(batch_size, count - i)
         r = requests.get(
             url,
             params = {
@@ -119,9 +122,10 @@ def get_arcgis_query(
                 "outSR":'4326',
                 "f":f,
                 "where":where,
-                "resultRecordCount":limit,
+                "resultRecordCount": current_batch,
                 "resultOffset":i,
                 "geometryType":'esriGeometryPolygon',
+                
             }
         )
 
@@ -131,6 +135,8 @@ def get_arcgis_query(
 
         else:
             data['features'].extend(r.json()['features'])
-        i+=1000
+        i += batch_size
 
     return data 
+
+
