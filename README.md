@@ -19,4 +19,25 @@ performed with Maggie Rogers and have been gigging in NYC since I was
 16, balancing my passion for music with my love for coding and
 problem-solving.
 
+I’m particularly interested in open-source development and using
+notebooks as a way to document my thought process. NBDev lets me iterate
+quickly while keeping the codebase well organized.
+
 **I made this site using NBDev**
+
+## About the Code
+
+This repository contains a collection of small modules that demonstrate
+my approach to building reusable tools.
+
+- `delegation` – share function parameters with a decorator
+- `dependency` – lightweight dependency management with Pydantic
+- `multi_enum` – enumerations with multiple aliases
+- `database` – SQLAlchemy helpers configured via Pydantic models
+- `display` – utilities for Plotly and Pydantic documentation
+- `arc_gis` – simple wrappers around the ArcGIS API
+- `baseball` – modeling responses from the MLB Stats API
+
+Each module begins life in a notebook and is exported with nbdev,
+providing an example of how I iterate on ideas and keep my code
+organized.
