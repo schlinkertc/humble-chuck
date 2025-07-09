@@ -125,6 +125,7 @@ def get_arcgis_query(
                 "resultRecordCount": batch_size,
                 "resultOffset":i,
                 "geometryType":'esriGeometryPolygon',
+                
             }
         )
 
