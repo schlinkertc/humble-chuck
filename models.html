@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.34">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>models – humble-chuck</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-03f7a7ab0a6545458674c31d21f5a50e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">humble-chuck</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://docs.google.com/document/d/17Nb-wX0hvkfQFUGTHg1ogNJtvaZN0O5LW1rK0YXwjNI/edit?usp=sharing"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./models.html">models</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Humble Chuck</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./delegates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Delegation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dependency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dependency</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multi_enum.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MultiEnum</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./database.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Database</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./display.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">display</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./models.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./arc_gis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">arc_gis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./baseball.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Baseball</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">projects</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./projects/flow chart creator.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Flow Chart Creator</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./projects/treasury bonds.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Treasury Marketable Securities</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#displaying-objects-in-ipython" id="toc-displaying-objects-in-ipython" class="nav-link active" data-scroll-target="#displaying-objects-in-ipython">Displaying Objects in IPython</a>
+  <ul class="collapse">
+  <li><a href="#model_dump_for_display" id="toc-model_dump_for_display" class="nav-link" data-scroll-target="#model_dump_for_display">model_dump_for_display</a></li>
+  <li><a href="#displaymixin" id="toc-displaymixin" class="nav-link" data-scroll-target="#displaymixin">DisplayMixin</a></li>
+  <li><a href="#basemodel" id="toc-basemodel" class="nav-link" data-scroll-target="#basemodel">BaseModel</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  </ul></li>
+  <li><a href="#settings" id="toc-settings" class="nav-link" data-scroll-target="#settings">Settings</a>
+  <ul class="collapse">
+  <li><a href="#read_yaml_key" id="toc-read_yaml_key" class="nav-link" data-scroll-target="#read_yaml_key">read_yaml_key</a></li>
+  <li><a href="#basesettings" id="toc-basesettings" class="nav-link" data-scroll-target="#basesettings">BaseSettings</a></li>
+  </ul></li>
+  <li><a href="#generic-data-model" id="toc-generic-data-model" class="nav-link" data-scroll-target="#generic-data-model">Generic Data Model</a>
+  <ul class="collapse">
+  <li><a href="#example-datamodel" id="toc-example-datamodel" class="nav-link" data-scroll-target="#example-datamodel">Example DataModel</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">models</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<p><strong>Set up</strong><br>
+I love working with Pydantic models, but I’d like to add a few tweaks to make them even better to work with in Jupyter Notebooks</p>
+<p><strong>The Goal</strong><br>
+Update how Pydantic models are displayed in Jupyter Lab and Jupyter Notebook to make them more natural to work with in an IPython environment</p>
+<p><strong>The Result</strong><br>
+Subclassed Pydantic’s BaseModel and add <code>_repr_html_</code> and <code>_repr_json_</code> methods</p>
+<section id="displaying-objects-in-ipython" class="level2">
+<h2 class="anchored" data-anchor-id="displaying-objects-in-ipython">Displaying Objects in IPython</h2>
+<p>If Jupyter encounters an error while calling their display methods, it will try the next available option for displaying an object. For example in Jupyter Lab the default representation is JSON, but if there is an error displaying the JSON it will fall back on displaying with HTML. If the error persists, it will fall back on default _<br>
+<code>__repr__</code> or <code>__str__</code> methods.</p>
+<p>So for this exercise, we’ll create a function that tries to dump a pydanitc model, but if anything goes wrong it will just issue a warning and pass. That way if there is an issue with our custom display, we’ll just get Pydantics default display mechanism. Note that we’re using <a href="https://schlinkertc.github.io/humble-chuck/delegates.html#delegates"><code>delegates</code></a> here, so the kwargs you’ll see in the docs are not included in the signature.</p>
+<hr>
+<p><a href="https://github.com/schlinkertc/humble-chuck/blob/main/humble_chuck/models.py#L26" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="model_dump_for_display" class="level3">
+<h3 class="anchored" data-anchor-id="model_dump_for_display">model_dump_for_display</h3>
+<blockquote class="blockquote">
+<pre><code> model_dump_for_display (model:pydantic.main.BaseModel,
+                         mode:"Literal['json','python']|str"='python',
+                         include:IncEx|None=None, exclude:IncEx|None=None,
+                         context:Any|None=None, by_alias:bool|None=None,
+                         exclude_unset:bool=False,
+                         exclude_defaults:bool=False,
+                         exclude_none:bool=False, round_trip:bool=False, w
+                         arnings:"bool|Literal['none','warn','error']"=Tru
+                         e, fallback:Callable[[Any],Any]|None=None,
+                         serialize_as_any:bool=False)</code></pre>
+</blockquote>
+<p>*Calls PydanticBaseModel.model_dump(), but if there is an issue it raises a warning and passes to allow default representation.</p>
+<p>Delegates kwargs to PydanticBaseModel.model_dump*</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>model</td>
+<td>BaseModel</td>
+<td></td>
+<td>The model to by displayed</td>
+</tr>
+<tr class="even">
+<td>mode</td>
+<td>Literal[‘json’, ‘python’] | str</td>
+<td>python</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>include</td>
+<td>IncEx | None</td>
+<td>None</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>exclude</td>
+<td>IncEx | None</td>
+<td>None</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>context</td>
+<td>Any | None</td>
+<td>None</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>by_alias</td>
+<td>bool | None</td>
+<td>None</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>exclude_unset</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>exclude_defaults</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>exclude_none</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>round_trip</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>warnings</td>
+<td>bool | Literal[‘none’, ‘warn’, ‘error’]</td>
+<td>True</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>fallback</td>
+<td>Callable[[Any], Any] | None</td>
+<td>None</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>serialize_as_any</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div id="1add7da9-38d5-4157-b9e4-a094f6cc9139" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">@delegates</span>(PydanticBaseModel.model_dump) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> model_dump_for_display(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    model:PydanticBaseModel, <span class="co">#The model to by displayed</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>kwargs</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Calls PydanticBaseModel.model_dump(), </span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">    but if there is an issue it raises a warning and passes to allow default representation.  </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Delegates kwargs to PydanticBaseModel.model_dump</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    kwargs[<span class="st">'mode'</span>]<span class="op">=</span><span class="st">'json'</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> model.model_dump(<span class="op">**</span>kwargs)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        logging.warning(e)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+<p><a href="https://github.com/schlinkertc/humble-chuck/blob/main/humble_chuck/models.py#L43" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="displaymixin" class="level3">
+<h3 class="anchored" data-anchor-id="displaymixin">DisplayMixin</h3>
+<blockquote class="blockquote">
+<pre><code> DisplayMixin ()</code></pre>
+</blockquote>
+<p><em>Initialize self. See help(type(self)) for accurate signature.</em></p>
+<div id="cfc82397-a586-4ba6-93ca-547e6358c2e0" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DisplayMixin:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _repr_json_(<span class="va">self</span>):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> model_dump_for_display(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            mode<span class="op">=</span><span class="st">'json'</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            <span class="op">**</span><span class="va">self</span>.model_config.get(<span class="st">'repr_kwargs'</span>, {})</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _repr_html_(<span class="va">self</span>):</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> json2html.convert(</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>            model_dump_for_display(<span class="va">self</span>, mode<span class="op">=</span><span class="st">'json'</span>, <span class="op">**</span><span class="va">self</span>.model_config.get(<span class="st">'repr_kwargs'</span>, {}))</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Because we are subclassing Pydantic’s BaseModel, the docs shown here are taken from the parent class.</p>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/schlinkertc/humble-chuck/blob/main/humble_chuck/models.py#L58" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="basemodel" class="level3">
+<h3 class="anchored" data-anchor-id="basemodel">BaseModel</h3>
+<blockquote class="blockquote">
+<pre><code> BaseModel ()</code></pre>
+</blockquote>
+<p>*!!! abstract “Usage Documentation” <a href="../concepts/models.md">Models</a></p>
+<p>A base class for creating Pydantic models.</p>
+<p>Attributes: <strong>class_vars</strong>: The names of the class variables defined on the model. <strong>private_attributes</strong>: Metadata about the private attributes of the model. <strong>signature</strong>: The synthesized <code>__init__</code> [<code>Signature</code>][inspect.Signature] of the model.</p>
+<pre><code>__pydantic_complete__: Whether model building is completed, or if there are still undefined fields.
+__pydantic_core_schema__: The core schema of the model.
+__pydantic_custom_init__: Whether the model has a custom `__init__` function.
+__pydantic_decorators__: Metadata containing the decorators defined on the model.
+    This replaces `Model.__validators__` and `Model.__root_validators__` from Pydantic V1.
+__pydantic_generic_metadata__: Metadata for generic models; contains data used for a similar purpose to
+    __args__, __origin__, __parameters__ in typing-module generics. May eventually be replaced by these.
+__pydantic_parent_namespace__: Parent namespace of the model, used for automatic rebuilding of models.
+__pydantic_post_init__: The name of the post-init method for the model, if defined.
+__pydantic_root_model__: Whether the model is a [`RootModel`][pydantic.root_model.RootModel].
+__pydantic_serializer__: The `pydantic-core` `SchemaSerializer` used to dump instances of the model.
+__pydantic_validator__: The `pydantic-core` `SchemaValidator` used to validate instances of the model.
+
+__pydantic_fields__: A dictionary of field names and their corresponding [`FieldInfo`][pydantic.fields.FieldInfo] objects.
+__pydantic_computed_fields__: A dictionary of computed field names and their corresponding [`ComputedFieldInfo`][pydantic.fields.ComputedFieldInfo] objects.
+
+__pydantic_extra__: A dictionary containing extra values, if [`extra`][pydantic.config.ConfigDict.extra]
+    is set to `'allow'`.
+__pydantic_fields_set__: The names of fields explicitly set during instantiation.
+__pydantic_private__: Values of private attributes set on the model instance.**</code></pre>
+<p><strong>Fields:</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<div id="147bc7bd-c89a-4727-a5bf-060a9d1cd0f0" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BaseModel(PydanticBaseModel,DisplayMixin):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="6ed16287-80e8-4bec-890f-e565d1454ba7" class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydantic <span class="im">import</span> Field,AliasGenerator</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
+<p>Note that you can customize how objects get displayed in the model_config. Here we’ll choose to display the object with aliases instead of field names.</p>
+<div id="a59cadbd-8b1c-4107-bf07-1753be127abb" class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Project(BaseModel):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Model for capturing details about a construction project"""</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    model_config <span class="op">=</span> ConfigDict(</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        alias_generator<span class="op">=</span>AliasGenerator(            </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>            serialization_alias<span class="op">=</span><span class="kw">lambda</span> field_name: field_name.title().replace(<span class="st">'_'</span>,<span class="st">' '</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        repr_kwargs<span class="op">=</span>{<span class="st">'by_alias'</span>:<span class="va">True</span>} <span class="co">#&lt;-- I can control how the model gets displayed in jupyter by provided kwargs to model_dump </span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    project_name: <span class="bu">str</span> <span class="op">=</span> Field(..., description<span class="op">=</span><span class="st">"Name of the construction project"</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    start_date: date <span class="op">=</span> Field(..., description<span class="op">=</span><span class="st">"Date when the project started"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    end_date: Optional[date] <span class="op">=</span> Field(default<span class="op">=</span><span class="va">None</span>, description<span class="op">=</span><span class="st">"Date when the project ended"</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    description: Optional[<span class="bu">str</span>] <span class="op">=</span> Field(default<span class="op">=</span><span class="va">None</span>, description<span class="op">=</span><span class="st">"Short description of the project"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    is_active: <span class="bu">bool</span> <span class="op">=</span> Field(..., description<span class="op">=</span><span class="st">"Indicates if the project is currently active"</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    budget: Optional[Dict[<span class="bu">str</span>, <span class="bu">float</span>]] <span class="op">=</span> Field(default<span class="op">=</span><span class="va">None</span>, description<span class="op">=</span><span class="st">"Budget with different risk assessments"</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    employees: List[Dict[<span class="bu">str</span>, <span class="bu">str</span>]] <span class="op">=</span> Field(..., description<span class="op">=</span><span class="st">"List of employees working on the project"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    technologies_used: List[<span class="bu">str</span>] <span class="op">=</span> Field(..., description<span class="op">=</span><span class="st">"List of technologies used in the project"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the docs, you’ll see this example represented as HTML. In Jupyter Lab it get’s displayed as interactive, collapsible JSON.</p>
+<div id="34078756-908d-47e6-8ac9-8110ddc906eb" class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating an instance of the model</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>example_project <span class="op">=</span> Project(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    project_name<span class="op">=</span><span class="st">"Highway Bridge Construction"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    start_date<span class="op">=</span>date(<span class="dv">2024</span>, <span class="dv">1</span>, <span class="dv">15</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    end_date<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="st">"A large-scale project focused on building a new highway bridge."</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    is_active<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    budget<span class="op">=</span>{<span class="st">"conservative"</span>: <span class="dv">5_000_000</span>, <span class="st">"base_line"</span>: <span class="dv">6_500_000</span>, <span class="st">"worst_case"</span>: <span class="dv">8_000_000</span>},</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    employees<span class="op">=</span>[</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"name"</span>: <span class="st">"Alice Johnson"</span>, <span class="st">"roll"</span>: <span class="st">"Project Manager"</span>},</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"name"</span>: <span class="st">"Bob Smith"</span>, <span class="st">"roll"</span>: <span class="st">"Engineer"</span>},</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"name"</span>: <span class="st">"Clara Davis"</span>, <span class="st">"roll"</span>: <span class="st">"Site Supervisor"</span>}</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    technologies_used<span class="op">=</span>[<span class="st">"AutoCAD"</span>, <span class="st">"Revit"</span>, <span class="st">"MS Project"</span>]</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>example_project</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Project Name</td>
+<td>Highway Bridge Construction</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Start Date</td>
+<td>2024-01-15</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">End Date</td>
+<td>None</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Description</td>
+<td>A large-scale project focused on building a new highway bridge.</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Is Active</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Budget</td>
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">conservative</td>
+<td>5000000.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">base_line</td>
+<td>6500000.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">worst_case</td>
+<td>8000000.0</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Employees</td>
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">roll</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Alice Johnson</td>
+<td>Project Manager</td>
+</tr>
+<tr class="even">
+<td>Bob Smith</td>
+<td>Engineer</td>
+</tr>
+<tr class="odd">
+<td>Clara Davis</td>
+<td>Site Supervisor</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Technologies Used</td>
+<td><ul>
+<li>AutoCAD</li>
+<li>Revit</li>
+<li>MS Project</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="settings" class="level2">
+<h2 class="anchored" data-anchor-id="settings">Settings</h2>
+<p>I like to have all my settings in the same place instead of maintaining various .env files all over the place. So I’ve customized Pydantic’s BaseSettings to read values from a central yaml file.</p>
+<hr>
+<p><a href="https://github.com/schlinkertc/humble-chuck/blob/main/humble_chuck/models.py#L63" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="read_yaml_key" class="level3">
+<h3 class="anchored" data-anchor-id="read_yaml_key">read_yaml_key</h3>
+<blockquote class="blockquote">
+<pre><code> read_yaml_key (file_path:str, target_key:str)</code></pre>
+</blockquote>
+<p>*Reads values from a specific key in a YAML file and returns them as a dictionary.</p>
+<p>:param file_path: Path to the YAML file. :param target_key: The key whose values need to be extracted. :return: A dictionary containing the values for the specified key.*</p>
+<div id="787dd392-47bf-4a56-815b-1ff4090dd1fa" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>file_path <span class="op">=</span> <span class="st">"example_data/example_config.yaml"</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>target_key <span class="op">=</span> <span class="st">"eg_db_"</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> read_yaml_key(file_path, target_key)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'user': 'harold', 'password': 'purple_crayon'}</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/schlinkertc/humble-chuck/blob/main/humble_chuck/models.py#L127" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="basesettings" class="level3">
+<h3 class="anchored" data-anchor-id="basesettings">BaseSettings</h3>
+<blockquote class="blockquote">
+<pre><code> BaseSettings (_case_sensitive:bool|None=None,
+               _nested_model_default_partial_update:bool|None=None,
+               _env_prefix:str|None=None,
+               _env_file:DotenvType|None=Path('.'),
+               _env_file_encoding:str|None=None,
+               _env_ignore_empty:bool|None=None,
+               _env_nested_delimiter:str|None=None,
+               _env_nested_max_split:int|None=None,
+               _env_parse_none_str:str|None=None,
+               _env_parse_enums:bool|None=None,
+               _cli_prog_name:str|None=None,
+               _cli_parse_args:bool|list[str]|tuple[str,...]|None=None,
+               _cli_settings_source:CliSettingsSource[Any]|None=None,
+               _cli_parse_none_str:str|None=None,
+               _cli_hide_none_type:bool|None=None,
+               _cli_avoid_json:bool|None=None,
+               _cli_enforce_required:bool|None=None,
+               _cli_use_class_docs_for_groups:bool|None=None,
+               _cli_exit_on_error:bool|None=None,
+               _cli_prefix:str|None=None,
+               _cli_flag_prefix_char:str|None=None,
+               _cli_implicit_flags:bool|None=None,
+               _cli_ignore_unknown_args:bool|None=None,
+               _cli_kebab_case:bool|None=None,
+               _cli_shortcuts:Mapping[str,str|list[str]]|None=None,
+               _secrets_dir:PathType|None=None)</code></pre>
+</blockquote>
+<p>*Base class for settings, allowing values to be overridden by environment variables.</p>
+<p>This is useful in production for secrets you do not wish to save in code, it plays nicely with docker(-compose), Heroku and any 12 factor app design.</p>
+<p>All the below attributes can be set via <code>model_config</code>.</p>
+<p>Args: _case_sensitive: Whether environment and CLI variable names should be read with case-sensitivity. Defaults to <code>None</code>. _nested_model_default_partial_update: Whether to allow partial updates on nested model default object fields. Defaults to <code>False</code>. _env_prefix: Prefix for all environment variables. Defaults to <code>None</code>. _env_file: The env file(s) to load settings values from. Defaults to <code>Path('')</code>, which means that the value from <code>model_config['env_file']</code> should be used. You can also pass <code>None</code> to indicate that environment variables should not be loaded from an env file. _env_file_encoding: The env file encoding, e.g.&nbsp;<code>'latin-1'</code>. Defaults to <code>None</code>. _env_ignore_empty: Ignore environment variables where the value is an empty string. Default to <code>False</code>. _env_nested_delimiter: The nested env values delimiter. Defaults to <code>None</code>. _env_nested_max_split: The nested env values maximum nesting. Defaults to <code>None</code>, which means no limit. _env_parse_none_str: The env string value that should be parsed (e.g.&nbsp;“null”, “void”, “None”, etc.) into <code>None</code> type(None). Defaults to <code>None</code> type(None), which means no parsing should occur. _env_parse_enums: Parse enum field names to values. Defaults to <code>None.</code>, which means no parsing should occur. _cli_prog_name: The CLI program name to display in help text. Defaults to <code>None</code> if _cli_parse_args is <code>None</code>. Otherwise, defaults to sys.argv[0]. _cli_parse_args: The list of CLI arguments to parse. Defaults to None. If set to <code>True</code>, defaults to sys.argv[1:]. _cli_settings_source: Override the default CLI settings source with a user defined instance. Defaults to None. _cli_parse_none_str: The CLI string value that should be parsed (e.g.&nbsp;“null”, “void”, “None”, etc.) into <code>None</code> type(None). Defaults to _env_parse_none_str value if set. Otherwise, defaults to “null” if _cli_avoid_json is <code>False</code>, and “None” if _cli_avoid_json is <code>True</code>. _cli_hide_none_type: Hide <code>None</code> values in CLI help text. Defaults to <code>False</code>. _cli_avoid_json: Avoid complex JSON objects in CLI help text. Defaults to <code>False</code>. _cli_enforce_required: Enforce required fields at the CLI. Defaults to <code>False</code>. _cli_use_class_docs_for_groups: Use class docstrings in CLI group help text instead of field descriptions. Defaults to <code>False</code>. _cli_exit_on_error: Determines whether or not the internal parser exits with error info when an error occurs. Defaults to <code>True</code>. _cli_prefix: The root parser command line arguments prefix. Defaults to ““. _cli_flag_prefix_char: The flag prefix character to use for CLI optional arguments. Defaults to ‘-’. _cli_implicit_flags: Whether <code>bool</code> fields should be implicitly converted into CLI boolean flags. (e.g.&nbsp;–flag, –no-flag). Defaults to <code>False</code>. _cli_ignore_unknown_args: Whether to ignore unknown CLI args and parse only known ones. Defaults to <code>False</code>. _cli_kebab_case: CLI args use kebab case. Defaults to <code>False</code>. _cli_shortcuts: Mapping of target field name to alias names. Defaults to <code>None</code>. _secrets_dir: The secret files directory or a sequence of directories. Defaults to <code>None</code>.**</p>
+<p><strong>Fields:</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<div id="bade086e-2b76-473e-9899-f1e8b85f1b13" class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ExampleSettings(BaseSettings):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    model_config <span class="op">=</span> <span class="bu">dict</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        yml_settings_path<span class="op">=</span><span class="st">'example_data/example_config.yaml'</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        env_prefix<span class="op">=</span><span class="st">'eg_db_'</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    user:<span class="bu">str</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    password: <span class="bu">str</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2e4f640e-2c02-4496-822d-75aa4e16d4fe" class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ExampleSettings()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">user</td>
+<td>harold</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">password</td>
+<td>purple_crayon</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="069b4e03-f63e-4107-b1f0-6a9b7d1a2392" class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="507382fe-390c-420d-a417-2f7bfac3bed8" class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'eg_db_user'</span>] <span class="op">=</span> <span class="st">'arnold'</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> ExampleSettings().user <span class="op">==</span> <span class="st">'arnold'</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>os.environ.pop(<span class="st">'eg_db_user'</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> ExampleSettings().user <span class="op">==</span> <span class="st">'harold'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="generic-data-model" class="level2">
+<h2 class="anchored" data-anchor-id="generic-data-model">Generic Data Model</h2>
+<div id="1a8f8582-2212-4cef-b3c1-8a148f19fc34" class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DataModel(BaseModel,Generic[DataModelT],DisplayMixin):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">    A Generic Data Model. The data attribute contains a list of objects of an arbitrary type. It is intended for use with a Pydantic model. </span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Supports rich __repr__ displays in HTML and Javascript for use in Jupyter Notebook and Lab, respectively. </span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    data: List[DataModelT] <span class="op">=</span> []</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">@delegates</span>(BaseModel.model_dump)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> to_dataframe(<span class="va">self</span>,<span class="op">**</span>kwargs):</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""turns `data` into a DataFrame. Delegates to `pydantic.BaseModel.model_dump` to control model serialization"""</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> [x.model_dump(<span class="op">**</span>kwargs) <span class="cf">for</span> x <span class="kw">in</span> <span class="va">self</span>.data]</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pd.DataFrame(data).convert_dtypes()</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">@classmethod</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> display_html_schema(cls):</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> HTML(</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>            json2html.convert(</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>                cls.model_json_schema(</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>                    mode<span class="op">=</span><span class="st">'serialization'</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _repr_html_(<span class="va">self</span>):</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>            df_html <span class="op">=</span> <span class="va">self</span>.to_dataframe().head()._repr_html_()</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>            schema <span class="op">=</span> <span class="va">self</span>.model_json_schema()</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>            html_fields <span class="op">=</span> [</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"&lt;header&gt;&lt;b&gt;</span><span class="sc">{</span>schema_field<span class="sc">}</span><span class="ss">&lt;/b&gt;: </span><span class="sc">{</span>schema<span class="sc">.</span>get(schema_field)<span class="sc">}</span><span class="ch">\n</span><span class="ss">&lt;/header&gt;"</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> schema_field <span class="kw">in</span> [<span class="st">'title'</span>,<span class="st">'description'</span>]</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> field <span class="kw">in</span> <span class="va">self</span>.model_fields.keys():</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> field<span class="op">!=</span><span class="st">'data'</span>:</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>                    html_fields.append(</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>                        <span class="ss">f'&lt;header&gt;&lt;b&gt;</span><span class="sc">{</span>field<span class="sc">}</span><span class="ss">&lt;/b&gt;: </span><span class="sc">{</span><span class="bu">getattr</span>(<span class="va">self</span>,field)<span class="sc">}</span><span class="ss">&lt;/header&gt;'</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">''</span>.join(</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>                x <span class="cf">for</span> x <span class="kw">in</span> html_fields <span class="op">+</span> [<span class="st">'&lt;header&gt;&lt;b&gt;DataFrame&lt;/b&gt;: &lt;/header&gt;'</span>,df_html]</span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>            logging.warning(e)</span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="example-datamodel" class="level3">
+<h3 class="anchored" data-anchor-id="example-datamodel">Example DataModel</h3>
+<div id="47ab460e-5ffc-4544-b4d2-08c392d60aee" class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime <span class="im">as</span> dt</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydantic <span class="im">import</span> Field,ConfigDict,BeforeValidator</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Annotated,Optional</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="29e9cb16-1a1a-430a-84eb-b2cbb41a014d" class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://data.cityofnewyork.us/api/views/c3uy-2p5r/rows.csv?accessType=DOWNLOAD"</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>air_quality_df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>air_quality_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Unique ID</th>
+<th data-quarto-table-cell-role="th">Indicator ID</th>
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">Measure</th>
+<th data-quarto-table-cell-role="th">Measure Info</th>
+<th data-quarto-table-cell-role="th">Geo Type Name</th>
+<th data-quarto-table-cell-role="th">Geo Join ID</th>
+<th data-quarto-table-cell-role="th">Geo Place Name</th>
+<th data-quarto-table-cell-role="th">Time Period</th>
+<th data-quarto-table-cell-role="th">Start_Date</th>
+<th data-quarto-table-cell-role="th">Data Value</th>
+<th data-quarto-table-cell-role="th">Message</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>336867</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>407</td>
+<td>Flushing and Whitestone (CD7)</td>
+<td>Winter 2014-15</td>
+<td>12/01/2014</td>
+<td>23.97</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>336741</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>107</td>
+<td>Upper West Side (CD7)</td>
+<td>Winter 2014-15</td>
+<td>12/01/2014</td>
+<td>27.42</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>550157</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>414</td>
+<td>Rockaway and Broad Channel (CD14)</td>
+<td>Annual Average 2017</td>
+<td>01/01/2017</td>
+<td>12.55</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>412802</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>407</td>
+<td>Flushing and Whitestone (CD7)</td>
+<td>Winter 2015-16</td>
+<td>12/01/2015</td>
+<td>22.63</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>412803</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>407</td>
+<td>Flushing and Whitestone (CD7)</td>
+<td>Summer 2016</td>
+<td>06/01/2016</td>
+<td>14.00</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Create a model to represent a row of data:</p>
+<div id="5ffe89ba-a85e-4af3-8dbd-06f2538ca15e" class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AirQuality(BaseModel):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""An air quality measurement from the City of New York"""</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    model_config <span class="op">=</span> ConfigDict(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        coerce_numbers_to_str<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        alias_generator <span class="op">=</span> <span class="kw">lambda</span> x: x.replace(<span class="st">'_'</span>,<span class="st">' '</span>).title(),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    unique_id: <span class="bu">str</span> <span class="op">=</span> Field(alias<span class="op">=</span><span class="st">'Unique ID'</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    indicator_id: <span class="bu">str</span> <span class="op">=</span> Field(alias<span class="op">=</span><span class="st">'Indicator ID'</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    name: <span class="bu">str</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    measure: <span class="bu">str</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    measure_info: <span class="bu">str</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    geo_type_name: <span class="bu">str</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    geo_join_id: Optional[<span class="bu">int</span>] <span class="op">=</span> Field(alias<span class="op">=</span><span class="st">'Geo Join ID'</span>)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    geo_place_name: Optional[<span class="bu">str</span>]    </span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    time_period: <span class="bu">str</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    start_date: Annotated[</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>        dt.date,</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>        BeforeValidator(<span class="kw">lambda</span> x: dt.datetime.strptime(x,<span class="st">"%m/</span><span class="sc">%d</span><span class="st">/%Y"</span>))</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    ] <span class="op">=</span> Field(alias<span class="op">=</span><span class="st">'Start_Date'</span>)</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    data_value: <span class="bu">float</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e97effc5-8028-4a62-bf7c-f78e2328878f" class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>AirQuality.model_validate(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    air_quality_df.to_dict(<span class="st">'records'</span>)[<span class="dv">0</span>]</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">unique_id</td>
+<td>336867</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">indicator_id</td>
+<td>375</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">name</td>
+<td>Nitrogen dioxide (NO2)</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">measure</td>
+<td>Mean</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">measure_info</td>
+<td>ppb</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">geo_type_name</td>
+<td>CD</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">geo_join_id</td>
+<td>407</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">geo_place_name</td>
+<td>Flushing and Whitestone (CD7)</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">time_period</td>
+<td>Winter 2014-15</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">start_date</td>
+<td>2014-12-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">data_value</td>
+<td>23.97</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="bfedc4dd-b567-4b1c-9ceb-7e7362e3dbec" class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5c955cd4-0024-483e-af9b-8fa8b4a6ed05" class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AirQualityData(DataModel[AirQuality]):</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Air quality measurements from the City of New York."""</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    source: <span class="bu">str</span> <span class="op">=</span> <span class="st">"https://data.cityofnewyork.us/api/views/c3uy-2p5r/rows.csv?accessType=DOWNLOAD"</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    accessed_at: dt.datetime <span class="op">=</span> Field(default_factory<span class="op">=</span>dt.datetime.now)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        source:<span class="bu">str</span> <span class="op">=</span> <span class="st">"https://data.cityofnewyork.us/api/views/c3uy-2p5r/rows.csv?accessType=DOWNLOAD"</span>,</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    ):</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> pd.read_csv(source)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>            source<span class="op">=</span>source,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>            data <span class="op">=</span> data.replace(np.nan,<span class="va">None</span>).to_dict(<span class="st">'records'</span>)</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d632a491-7e5d-4907-b420-54008c36056e" class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>air_quality <span class="op">=</span> AirQualityData()</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>air_quality</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<header><b>title</b>: AirQualityData
+</header><header><b>description</b>: Air quality measurements from the City of New York.
+</header><header><b>source</b>: https://data.cityofnewyork.us/api/views/c3uy-2p5r/rows.csv?accessType=DOWNLOAD</header><header><b>accessed_at</b>: 2025-06-02 14:43:29.947960</header><header><b>DataFrame</b>: </header><div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">unique_id</th>
+<th data-quarto-table-cell-role="th">indicator_id</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">measure</th>
+<th data-quarto-table-cell-role="th">measure_info</th>
+<th data-quarto-table-cell-role="th">geo_type_name</th>
+<th data-quarto-table-cell-role="th">geo_join_id</th>
+<th data-quarto-table-cell-role="th">geo_place_name</th>
+<th data-quarto-table-cell-role="th">time_period</th>
+<th data-quarto-table-cell-role="th">start_date</th>
+<th data-quarto-table-cell-role="th">data_value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>336867</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>407</td>
+<td>Flushing and Whitestone (CD7)</td>
+<td>Winter 2014-15</td>
+<td>2014-12-01</td>
+<td>23.97</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>336741</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>107</td>
+<td>Upper West Side (CD7)</td>
+<td>Winter 2014-15</td>
+<td>2014-12-01</td>
+<td>27.42</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>550157</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>414</td>
+<td>Rockaway and Broad Channel (CD14)</td>
+<td>Annual Average 2017</td>
+<td>2017-01-01</td>
+<td>12.55</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>412802</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>407</td>
+<td>Flushing and Whitestone (CD7)</td>
+<td>Winter 2015-16</td>
+<td>2015-12-01</td>
+<td>22.63</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>412803</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>407</td>
+<td>Flushing and Whitestone (CD7)</td>
+<td>Summer 2016</td>
+<td>2016-06-01</td>
+<td>14.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="4ee4cfc6-1cd6-4a5e-a0e1-1ab40fdc2073" class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>air_quality.data[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">unique_id</td>
+<td>336867</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">indicator_id</td>
+<td>375</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">name</td>
+<td>Nitrogen dioxide (NO2)</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">measure</td>
+<td>Mean</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">measure_info</td>
+<td>ppb</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">geo_type_name</td>
+<td>CD</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">geo_join_id</td>
+<td>407</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">geo_place_name</td>
+<td>Flushing and Whitestone (CD7)</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">time_period</td>
+<td>Winter 2014-15</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">start_date</td>
+<td>2014-12-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">data_value</td>
+<td>23.97</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="dc03518d-17b2-4d64-a046-5840d21839a2" class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>display(air_quality.to_dataframe(by_alias<span class="op">=</span><span class="va">True</span>).head(<span class="dv">2</span>))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>air_quality.to_dataframe(by_alias<span class="op">=</span><span class="va">False</span>).head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Unique ID</th>
+<th data-quarto-table-cell-role="th">Indicator ID</th>
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">Measure</th>
+<th data-quarto-table-cell-role="th">Measure Info</th>
+<th data-quarto-table-cell-role="th">Geo Type Name</th>
+<th data-quarto-table-cell-role="th">Geo Join ID</th>
+<th data-quarto-table-cell-role="th">Geo Place Name</th>
+<th data-quarto-table-cell-role="th">Time Period</th>
+<th data-quarto-table-cell-role="th">Start_Date</th>
+<th data-quarto-table-cell-role="th">Data Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>336867</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>407</td>
+<td>Flushing and Whitestone (CD7)</td>
+<td>Winter 2014-15</td>
+<td>2014-12-01</td>
+<td>23.97</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>336741</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>107</td>
+<td>Upper West Side (CD7)</td>
+<td>Winter 2014-15</td>
+<td>2014-12-01</td>
+<td>27.42</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">unique_id</th>
+<th data-quarto-table-cell-role="th">indicator_id</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">measure</th>
+<th data-quarto-table-cell-role="th">measure_info</th>
+<th data-quarto-table-cell-role="th">geo_type_name</th>
+<th data-quarto-table-cell-role="th">geo_join_id</th>
+<th data-quarto-table-cell-role="th">geo_place_name</th>
+<th data-quarto-table-cell-role="th">time_period</th>
+<th data-quarto-table-cell-role="th">start_date</th>
+<th data-quarto-table-cell-role="th">data_value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>336867</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>407</td>
+<td>Flushing and Whitestone (CD7)</td>
+<td>Winter 2014-15</td>
+<td>2014-12-01</td>
+<td>23.97</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>336741</td>
+<td>375</td>
+<td>Nitrogen dioxide (NO2)</td>
+<td>Mean</td>
+<td>ppb</td>
+<td>CD</td>
+<td>107</td>
+<td>Upper West Side (CD7)</td>
+<td>Winter 2014-15</td>
+<td>2014-12-01</td>
+<td>27.42</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/schlinkertc\.github\.io\/humble-chuck");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
