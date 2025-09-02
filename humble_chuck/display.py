@@ -32,7 +32,7 @@ def custom_show(
 
 
 # %% ../nbs/05_display.ipynb 8
-from nbdev.showdoc import BasicMarkdownRenderer
+from nbdev.showdoc import BasicMarkdownRenderer,ShowDocRenderer
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
 import inspect
@@ -46,15 +46,11 @@ class PydanticAwareRenderer(BasicMarkdownRenderer):
                 self.render_fields_table(schema)
                 + self.render_defs_tables(schema)
             )
-            self.docs += md
-            return ""    
-            
-            #return "\n".join(lines)
+            # Return markdown for nbdev to place; do not mutate self.docs here
+            return md
         else:
-            if hasattr(super(),'render'):
-                return super().render()
-            
-            return super().__repr__()
+            return ''
+
 
     def render_fields_table(self, schema):
         lines = ["*", "\n**Fields:**\n"]
@@ -94,5 +90,7 @@ class PydanticAwareRenderer(BasicMarkdownRenderer):
             lines.append("")  # Blank line after each defs table
 
         return lines
+    def _repr_markdown_(self):
+        return super()._repr_markdown_() + self.render()
 
-    __repr__ = __str__ = render
+    __repr__ = __str__ = _repr_markdown_

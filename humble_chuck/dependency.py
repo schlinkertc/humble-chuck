@@ -73,7 +73,7 @@ class Dependency:
         Defines how the `Dependency` object should be serialized in JSON schemas.
         """
         json_schema = handler(core_schema.dict_schema())
-        print(cls.depends_on)
+        #print(cls.depends_on)
         json_schema.update({'description': 'A custom Dependency type with named keys'})
         return json_schema
 
